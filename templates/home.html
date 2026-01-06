@@ -1,0 +1,401 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UDAAN Society - Har Ghar Jal Project</title>
+  <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="nav-container">
+      <div class="logo">
+        <img class="logo-circle" src="{% static 'assets/logo.webp' %}" alt="" />
+      </div>
+      <ul class="nav-menu">
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            Who We Are <span class="dropdown-arrow">▼</span>
+          </a>
+          <div class="dropdown-menu">
+            <a href="#" class="dropdown-item">About</a>
+            <a href="#" class="dropdown-item">Our Mission And Values</a>
+            <a href="#" class="dropdown-item">Appreciation and Accolades</a>
+            <a href="#" class="dropdown-item">Our Partners</a>
+            <a href="#" class="dropdown-item">Our Policies</a>
+            <a href="#" class="dropdown-item">Contact Us</a>
+            <a href="#" class="dropdown-item">Our Team</a>
+            <a href="#" class="dropdown-item">FAQs</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            Make a Difference <span class="dropdown-arrow">▼</span>
+          </a>
+          <div class="dropdown-menu">
+            <a href="#" class="dropdown-item">Career and Fellowship</a>
+            <a href="#" class="dropdown-item">Workplace Giving</a>
+            <a href="#" class="dropdown-item">Volunteering</a>
+            <a href="#" class="dropdown-item">Volunteering</a>
+            <a href="#" class="dropdown-item">Campus Ambassador</a>
+            <a href="#" class="dropdown-item">Jobs at UDAAN Society</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            Impact <span class="dropdown-arrow">▼</span>
+          </a>
+          <div class="dropdown-menu">
+            <a href="#" class="dropdown-item">Annual Report</a>
+            <a href="#" class="dropdown-item">Our Locations</a>
+            <a href="#" class="dropdown-item">Projects</a>
+            <a href="#" class="dropdown-item">Our Activities</a>
+            <a href="#" class="dropdown-item">Blogs</a>
+            <a href="#" class="dropdown-item">News Clippings</a>
+            <a href="#" class="dropdown-item">Resources</a>
+          </div>
+        </li>
+        <li class="nav-item">
+          <a href="/blood-request/" class="nav-link">Blood Request</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link">Campaigns</a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="donate-btn">
+            📱 Donate Now <span>Secured by RazorPay</span></a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <button class="carousel-arrow prev" onclick="changeSlide(-1)">‹</button>
+    <button class="carousel-arrow next" onclick="changeSlide(1)">›</button>
+
+    <div class="hero-content">
+      <h1>Har Ghar Jal Project</h1>
+      <p>
+        UDAAN Society is appointed an Implementation support Agency under Jal
+        Jeevan Mission –Har Ghar Jal Project of Govt. of India by State Water
+        and Sanitation Mission, Uttar Pradesh for two District namely Aligarh
+        & Bulandshahr.
+      </p>
+      <a href="#" class="hero-btn">Click Here</a>
+    </div>
+
+    <div class="carousel-nav">
+      <span class="carousel-dot active" onclick="goToSlide(0)"></span>
+      <span class="carousel-dot" onclick="goToSlide(1)"></span>
+      <span class="carousel-dot" onclick="goToSlide(2)"></span>
+      <span class="carousel-dot" onclick="goToSlide(3)"></span>
+      <span class="carousel-dot" onclick="goToSlide(4)"></span>
+    </div>
+  </section>
+
+  <!-- Activities Section -->
+  <section class="activities-section">
+    <div class="activities-container">
+      <!-- Left Content -->
+      <div class="activities-content">
+        <h2>Our <span>Activities</span></h2>
+
+        <p class="activities-highlight">
+          We’ve worked on improving the lives of over
+          <strong>25,000</strong> young people through direct practice.
+        </p>
+
+        <p class="activities-description">
+          Young people from different backgrounds have a huge impact on us and
+          all our activities. They highlight those parts of society that are
+          broken, so we can help them in all possible ways to regain hope and
+          flourish in life.
+        </p>
+
+        <a href="#" class="activities-btn">
+          Read More
+          <span>›</span>
+        </a>
+      </div>
+
+      <!-- Right Image -->
+      <div class="activities-image-wrapper">
+        <img src="{% static 'assets/welcomeImage.jpg' %}" alt="Our Activities" />
+      </div>
+    </div>
+  </section>
+
+  <section class="donate-section">
+    <div class="donate-container">
+      <!-- Card 1 -->
+      <div class="donate-card blue">
+        <div class="donate-icon">📘</div>
+        <p class="donate-small">Donate for</p>
+        <h3>Children education</h3>
+        <a href="#">More details...</a>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="donate-card cream">
+        <div class="donate-icon">🌊</div>
+        <p class="donate-small">Donate for</p>
+        <h3>Clean water</h3>
+        <a href="#">More details...</a>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="donate-card teal">
+        <div class="donate-icon">🏥</div>
+        <p class="donate-small">Donate for</p>
+        <h3>Surgery & treatment</h3>
+        <a href="#">More details...</a>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="donate-card sky">
+        <div class="donate-icon">🧺</div>
+        <p class="donate-small">Donate for</p>
+        <h3>Health & good food</h3>
+        <a href="#">More details...</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="welcome-section">
+    <div class="welcome-container">
+      <!-- Left Image -->
+      <div class="welcome-image-wrapper">
+        <div class="dots dots-left"></div>
+        <img src="" alt="UDAAN activities" />
+      </div>
+
+      <!-- Right Content -->
+      <div class="welcome-content">
+        <p class="welcome-subtitle">Welcome to UDAAN Society</p>
+
+        <h2>
+          A World Where <span>Poverty</span> Will<br />
+          Not Exists
+        </h2>
+
+        <p class="welcome-highlight">
+          We are one the largest crowdfunding
+        </p>
+
+        <p class="welcome-description">
+          UDAAN Society, a leading NGO in Aligarh, runs impactful campaigns to
+          uplift underprivileged communities. Explore our diverse fundraising
+          campaigns dedicated to education, healthcare, poverty alleviation, and
+          more.
+        </p>
+
+        <div class="welcome-actions">
+          <a href="#" class="btn-primary">Learn More</a>
+
+          <a href="#" class="btn-secondary">
+            <span class="play-icon">▶</span>
+            Know More
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="causes-section">
+    <p class="causes-subtitle">Causes Listed</p>
+
+    <h2 class="causes-title">
+      We Are Always Where Other People <span>Need Help</span>
+    </h2>
+
+    <div class="causes-cards">
+      <!-- Card 1 -->
+      <div class="cause-card">
+        <span class="cause-tag health">Health</span>
+
+        <img src="{% static 'assets/p1.jpeg' %}" alt="Cause image" class="cause-image" />
+
+        <div class="cause-goal">
+          Goal: ₹ 200000
+          <div class="goal-bar">
+            <span></span>
+          </div>
+        </div>
+
+        <h3 class="cause-heading">
+          Appeal For Support: Help Puvendra Sing...
+        </h3>
+
+        <hr />
+
+        <div class="cause-meta">
+          <div>
+            <strong>Date:</strong>
+            <span>04/01/2026</span>
+          </div>
+          <div>
+            <strong>By:</strong>
+            <span>UDAAN Society</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="cause-card">
+        <span class="cause-tag livelihood">Livelihood</span>
+
+        <img src="{% static 'assets/p2.jpg' %}" alt="Cause image" class="cause-image" />
+
+        <div class="cause-goal">
+          Goal: ₹ 60000
+          <div class="goal-bar">
+            <span></span>
+          </div>
+        </div>
+
+        <h3 class="cause-heading">
+          Empower A Single Mother’s Business...
+        </h3>
+
+        <hr />
+
+        <div class="cause-meta">
+          <div>
+            <strong>Date:</strong>
+            <span>30/06/2025</span>
+          </div>
+          <div>
+            <strong>By:</strong>
+            <span>Gyanendra Mishra</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="cause-card">
+        <span class="cause-tag health">Health</span>
+
+        <img src="{% static 'assets/p3.jpeg' %}" alt="Cause image" class="cause-image" />
+
+        <div class="cause-goal">
+          Goal: ₹ 100000
+          <div class="goal-bar">
+            <span></span>
+          </div>
+        </div>
+
+        <h3 class="cause-heading">
+          ⭐ Support Sachin In Fight Against...
+        </h3>
+
+        <hr />
+
+        <div class="cause-meta">
+          <div>
+            <strong>Date:</strong>
+            <span>05/04/2025</span>
+          </div>
+          <div>
+            <strong>By:</strong>
+            <span>UDAAN Society</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="causes-footer">
+      <a href="#" class="view-more">View more..</a>
+
+      <div class="cause-actions">
+        <a href="#" class="btn-red">₹ Donate</a>
+        <a href="#" class="btn-outline">Create New</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="projects-section">
+    <p class="projects-subtitle">Recent Project</p>
+
+    <h2 class="projects-title">
+      We Have Successfully Worked Multiple <span>Projects</span>
+    </h2>
+
+    <div class="projects-grid">
+      <!-- Card 1 -->
+      <div class="project-card">
+        <img src="{% static 'assets/p4.jpg' %}" alt="Project image" />
+
+        <div class="project-content">
+          <h3>Enabling Future Through Youth...</h3>
+
+          <p class="project-desc">
+            ✨ UDAAN Society Joins Hands with Bandhan Skill Development Centre for Youth...
+          </p>
+
+          <a href="#" class="project-btn">Read More</a>
+
+          <hr />
+
+          <p class="project-date">
+            📅 Date: May 26, 2025
+          </p>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="project-card">
+        <img src="{% static 'assets/p5.jpg' %}" alt="Project image" />
+
+        <div class="project-content">
+          <h3>Shiksha Plus Initiative With Shiv Nadar...</h3>
+
+          <p class="project-desc">
+            The Shiksha Plus initiative is a program by the Shiv Nadar Foundation...
+          </p>
+
+          <a href="#" class="project-btn">Read More</a>
+
+          <hr />
+
+          <p class="project-date">
+            📅 Date: December 4, 2024
+          </p>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="project-card">
+        <img src="{% static 'assets/p6.webp' %}" alt="Project image" />
+
+        <div class="project-content">
+          <h3>Operation And Management Of Shelt...</h3>
+
+          <p class="project-desc">
+            The shelter homes are constructed under the central government’s Shelter for Urban...
+          </p>
+
+          <a href="#" class="project-btn">Read More</a>
+
+          <hr />
+
+          <p class="project-date">
+            📅 Date: February 16, 2024
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="projects-footer">
+      <a href="#" class="projects-view-more">View more..</a>
+    </div>
+  </section>
+
+  <script src="{% static 'js/home.js' %}"></script>
+</body>
+
+</html>
