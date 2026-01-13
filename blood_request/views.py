@@ -115,3 +115,40 @@ def home_view(request):
         'projects': projects
     }
     return render(request, 'home.html', context)
+
+from django.contrib.auth.decorators import login_required
+from .models import Task
+
+@login_required
+def staff_dashboard(request):
+    """
+    Staff Dashboard: View assigned tasks.
+    """
+    tasks = Task.objects.filter(assigned_to=request.user).order_by('due_date')
+    
+    context = {
+        'tasks': tasks
+    }
+    context = {
+        'tasks': tasks
+    }
+    return render(request, 'staff_dashboard.html', context)
+
+from django.shortcuts import get_object_or_404, redirect
+from django.views.decorators.http import require_POST
+
+@login_required
+@require_POST
+def update_task_status(request, pk):
+    task = get_object_or_404(Task, pk=pk, assigned_to=request.user)
+    
+    # Simple Toggle for now: To Do -> In Progress -> Done -> To Do
+    if task.status == 'To Do':
+        task.status = 'In Progress'
+    elif task.status == 'In Progress':
+        task.status = 'Done'
+    else:
+        task.status = 'To Do'
+        
+    task.save()
+    return redirect('staff_dashboard')
