@@ -4,90 +4,115 @@
 <section class="py-20 bg-gray-50 min-h-screen">
     <div class="container mx-auto px-4">
         <div class="flex justify-between items-center mb-8">
-            <h1 class="text-3xl font-bold text-gray-800">Staff Dashboard</h1>
+            <h1 class="text-3xl font-bold text-gray-800">My Workspace</h1>
             <div class="text-gray-600">
-                Welcome, <span class="font-semibold">{{ request.user.username }}</span>
+                <span class="font-semibold">{{ request.user.username }}</span>
                 <span class="mx-2">|</span>
                 <a href="{% url 'admin:logout' %}" class="text-red-500 hover:underline">Logout</a>
             </div>
         </div>
 
-        <!-- Stats / Kanban Header -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                <h3 class="text-gray-500 text-sm uppercase">Assigned Tasks</h3>
-                <p class="text-3xl font-bold text-blue-600">{{ tasks.count }}</p>
-            </div>
-            <!-- Add more stats later -->
-        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-        <!-- Task List -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-            <div class="p-6 border-b border-gray-100">
-                <h2 class="text-xl font-bold text-gray-800">My Tasks</h2>
+            <!-- TO DO COLUMN -->
+            <div class="bg-gray-100 rounded-xl p-4">
+                <h3 class="text-gray-500 font-bold uppercase text-sm mb-4 flex justify-between">
+                    To Do <span class="bg-gray-200 px-2 rounded-full text-xs py-1">{{ todo_tasks|length }}</span>
+                </h3>
+                <div class="space-y-4">
+                    {% for task in todo_tasks %}
+                    <div
+                        class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-gray-400 hover:shadow-md transition">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider
+                                {% if task.priority == 'Critical' %} bg-red-100 text-red-700
+                                {% elif task.priority == 'High' %} bg-orange-100 text-orange-700
+                                {% elif task.priority == 'Medium' %} bg-blue-100 text-blue-700
+                                {% else %} bg-gray-100 text-gray-600 {% endif %}">
+                                {{ task.priority }}
+                            </span>
+                            <span class="text-xs text-gray-400">{{ task.due_date|date:"M d" }}</span>
+                        </div>
+                        <h4 class="font-bold text-gray-800 mb-1">{{ task.title }}</h4>
+                        {% if task.remarks %}
+                        <p class="text-xs text-gray-500 mb-3">{{ task.remarks|truncatechars:60 }}</p>
+                        {% endif %}
+
+                        <form action="{% url 'update_task_status' task.pk %}" method="POST" class="mt-3">
+                            {% csrf_token %}
+                            <button type="submit"
+                                class="w-full py-2 bg-blue-50 text-blue-600 rounded-md text-xs font-bold hover:bg-blue-100 transition">
+                                Start Working &rarr;
+                            </button>
+                        </form>
+                    </div>
+                    {% empty %}
+                    <div class="text-center py-8 text-gray-400 text-sm">No pending tasks</div>
+                    {% endfor %}
+                </div>
             </div>
 
-            {% if tasks %}
-            <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse">
-                    <thead>
-                        <tr class="bg-gray-50 text-gray-600 text-sm">
-                            <th class="p-4 font-semibold">Title</th>
-                            <th class="p-4 font-semibold">Priority</th>
-                            <th class="p-4 font-semibold">Status</th>
-                            <th class="p-4 font-semibold">Due Date</th>
-                            <th class="p-4 font-semibold">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-100">
-                        {% for task in tasks %}
-                        <tr class="hover:bg-gray-50 transition">
-                            <td class="p-4 font-medium text-gray-900">
-                                {{ task.title }}
-                                {% if task.remarks %}
-                                <div class="text-xs text-gray-400 mt-1">{{ task.remarks|truncatechars:30 }}</div>
-                                {% endif %}
-                            </td>
-                            <td class="p-4">
-                                <span class="px-2 py-1 rounded text-xs font-bold
-                  {% if task.priority == 'Critical' %} bg-red-100 text-red-700
-                  {% elif task.priority == 'High' %} bg-orange-100 text-orange-700
-                  {% elif task.priority == 'Medium' %} bg-blue-100 text-blue-700
-                  {% else %} bg-gray-100 text-gray-600 {% endif %}">
-                                    {{ task.priority }}
-                                </span>
-                            </td>
-                            <td class="p-4">
-                                <span class="px-3 py-1 rounded-full text-xs font-semibold
-                  {% if task.status == 'Done' %} bg-green-100 text-green-700
-                  {% elif task.status == 'In Progress' %} bg-blue-100 text-blue-700
-                  {% else %} bg-yellow-100 text-yellow-700 {% endif %}">
-                                    {{ task.status }}
-                                </span>
-                            </td>
-                            <td class="p-4 text-gray-600 text-sm">{{ task.due_date }}</td>
-                            <td class="p-4">
-                                <form action="{% url 'update_task_status' task.pk %}" method="POST">
-                                    {% csrf_token %}
-                                    <button type="submit" class="text-blue-600 hover:text-blue-800 text-sm font-medium">
-                                        {% if task.status == 'Done' %}
-                                        Re-open
-                                        {% else %}
-                                        Advance Status
-                                        {% endif %}
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+            <!-- IN PROGRESS COLUMN -->
+            <div class="bg-blue-50 rounded-xl p-4">
+                <h3 class="text-blue-500 font-bold uppercase text-sm mb-4 flex justify-between">
+                    In Progress <span class="bg-blue-200 px-2 rounded-full text-xs py-1 text-blue-800">{{
+                        inprogress_tasks|length }}</span>
+                </h3>
+                <div class="space-y-4">
+                    {% for task in inprogress_tasks %}
+                    <div
+                        class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-blue-500 hover:shadow-md transition">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider
+                                {% if task.priority == 'Critical' %} bg-red-100 text-red-700
+                                {% elif task.priority == 'High' %} bg-orange-100 text-orange-700 (High)
+                                {% else %} bg-blue-100 text-blue-700 {% endif %}">
+                                {{ task.priority }}
+                            </span>
+                            <span class="text-xs text-blue-500 font-bold">Active</span>
+                        </div>
+                        <h4 class="font-bold text-gray-800 mb-1">{{ task.title }}</h4>
+                        <p class="text-xs text-gray-500 mb-3">{{ task.description|truncatechars:50 }}</p>
+
+                        <form action="{% url 'update_task_status' task.pk %}" method="POST" class="mt-3">
+                            {% csrf_token %}
+                            <button type="submit"
+                                class="w-full py-2 bg-green-50 text-green-600 rounded-md text-xs font-bold hover:bg-green-100 transition">
+                                Mark Done &check;
+                            </button>
+                        </form>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
-            {% else %}
-            <div class="p-8 text-center text-gray-500">
-                <p>No tasks assigned to you yet.</p>
+
+            <!-- DONE COLUMN -->
+            <div class="bg-green-50 rounded-xl p-4">
+                <h3 class="text-green-600 font-bold uppercase text-sm mb-4 flex justify-between">
+                    Completed <span class="bg-green-200 px-2 rounded-full text-xs py-1 text-green-800">{{
+                        done_tasks|length }}</span>
+                </h3>
+                <div class="space-y-4">
+                    {% for task in done_tasks %}
+                    <div
+                        class="bg-white p-4 rounded-lg shadow-sm border-l-4 border-green-500 opacity-75 hover:opacity-100 transition">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="text-xs text-green-600 font-bold strike-through">Completed</span>
+                            <span class="text-[10px] text-gray-400">{{ task.updated_at|date:"M d" }}</span>
+                        </div>
+                        <h4 class="font-medium text-gray-500 line-through mb-1">{{ task.title }}</h4>
+
+                        <form action="{% url 'update_task_status' task.pk %}" method="POST" class="mt-2">
+                            {% csrf_token %}
+                            <button type="submit" class="text-xs text-gray-400 hover:text-gray-600 underline">
+                                Re-open
+                            </button>
+                        </form>
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
-            {% endif %}
+
         </div>
     </div>
 </section>

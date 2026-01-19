@@ -122,15 +122,20 @@ from .models import Task
 @login_required
 def staff_dashboard(request):
     """
-    Staff Dashboard: View assigned tasks.
+    Staff Dashboard: Kanban Board View.
     """
-    tasks = Task.objects.filter(assigned_to=request.user).order_by('due_date')
+    # Fetch all tasks for the user
+    all_tasks = Task.objects.filter(assigned_to=request.user).order_by('due_date')
     
+    # Simple Python-side grouping (efficient enough for <100 tasks)
+    todo_tasks = [t for t in all_tasks if t.status == 'To Do']
+    inprogress_tasks = [t for t in all_tasks if t.status == 'In Progress']
+    done_tasks = [t for t in all_tasks if t.status == 'Done']
+
     context = {
-        'tasks': tasks
-    }
-    context = {
-        'tasks': tasks
+        'todo_tasks': todo_tasks,
+        'inprogress_tasks': inprogress_tasks,
+        'done_tasks': done_tasks,
     }
     return render(request, 'staff_dashboard.html', context)
 
