@@ -137,7 +137,8 @@
                     <div class="card-body">
                         <div class="progress-section">
                             <div class="goal-text">
-                                <span class="raised-amount">Raised: ₹{{ campaign.raised_amount }}</span>
+                                <span class="raised-amount">Raised: {% if campaign.raised_amount > 0 %}₹{{
+                                    campaign.raised_amount }}{% else %}No Amount{% endif %}</span>
                                 <span class="goal-amount">Goal: ₹{{ campaign.goal_amount }}</span>
                             </div>
                             <div class="progress-bar">
@@ -153,7 +154,7 @@
                         <div class="card-meta">
                             <span class="meta-item">
                                 <i class="fas fa-calendar"></i>
-                                <time datetime="{{ campaign.created_at|date:'Y-m-d' }}">{{
+                                Date - <time datetime="{{ campaign.created_at|date:'Y-m-d' }}">{{
                                     campaign.created_at|date:"d/m/Y" }}</time>
                             </span>
                         </div>
