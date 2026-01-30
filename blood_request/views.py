@@ -205,3 +205,15 @@ def campaign_list(request):
     """
     campaigns = Campaign.objects.all().order_by('-created_at')
     return render(request, 'campaigns.html', {'campaigns': campaigns})
+
+def project_list(request):
+    """
+    Public Project Listing Page
+    """
+    return render(request, 'projects.html')
+
+def project_detail(request):
+    """
+    Specific Project Detail Page (Enabling Future)
+    """
+    return render(request, 'project_detail.html')

@@ -1,0 +1,285 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects - UDAAN Society</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/projects.css' %}">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="{% url 'home' %}" class="logo">
+                    <img src="{% static 'assets/projects/logo.png' %}" alt="UDAAN Society">
+                </a>
+
+                <div class="nav-menu">
+                    <ul class="nav-links">
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li class="dropdown">
+                            <a href="#">Who We Are <i class="fas fa-caret-down"></i></a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#">Make a Difference <i class="fas fa-caret-down"></i></a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#">Impact <i class="fas fa-caret-down"></i></a>
+                        </li>
+                        <li><a href="/blood-request/">Blood Request</a></li>
+                        <li><a href="{% url 'campaign_list' %}">Campaigns</a></li>
+                    </ul>
+
+                    <a href="#" class="donate-btn">
+                        <div class="btn-text">
+                            <span class="main">📱Donate Now</span>
+                            <span class="sub">Secured by Razorpay</span>
+                        </div>
+                    </a>
+                </div>
+
+                <button class="mobile-toggle" id="mobileToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1920&h=500&fit=crop"
+                alt="Children">
+            <div class="hero-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <h1>PROJECTS</h1>
+        </div>
+    </section>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <div class="container">
+            <a href="{% url 'home' %}">Home</a>
+            <span class="sep">»</span>
+            <span class="current">Projects</span>
+        </div>
+    </div>
+
+    <!-- Intro Section -->
+    <section class="intro">
+        <div class="container">
+            <h2 class="main-title">TRANSFORMING LIVES THROUGH IMPACTFUL <span>PROJECTS</span></h2>
+            <p class="description">
+                UDaan Society is committed to creating positive change through a diverse range of projects. Our website
+                showcases initiatives designed to empower individuals and communities across various sectors. Explore
+                our projects page to delve deeper into these initiatives and discover how UDAAN Society is making a
+                difference in the lives of those we serve.
+            </p>
+        </div>
+    </section>
+
+    <!-- Projects Grid -->
+    <section class="projects">
+        <div class="container">
+            <div class="projects-grid">
+
+                <!-- Card 1 -->
+                <article class="project-card" data-aos="fade-up">
+                    <div class="card-image">
+                        <img src="{% static 'assets/projects/image 1.jpeg' %}" alt="Youth Development">
+                    </div>
+                    <div class="card-body">
+                        <h3>Enabling Future Through Youth...</h3>
+                        <p class="excerpt">
+                            <i class="fas fa-sun" style="color: #fbbf24;"></i>
+                            UDAAN Society Joins Hands with Bandhan Skill Development Centre for Youth...
+                        </p>
+                        <a href="{% url 'project_detail' %}" class="read-more">READ MORE</a>
+                        <div class="card-footer">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Date: May 26, 2025</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 2 -->
+                <article class="project-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card-image">
+                        <img src="{% static 'assets/projects/image 2.jpeg' %}" alt="Shiksha Plus">
+                    </div>
+                    <div class="card-body">
+                        <h3>Shiksha Plus Initiative With Shiv Nadar...</h3>
+                        <p class="excerpt">
+                            The Shiksha Plus initiative is a program by the Shiv Nadar Foundation...
+                        </p>
+                        <a href="https://udaansociety.org/projects/shiksha-plus-initiative-with-shiv-nadar-foundation-impacting-3000-lives-with-education/"
+                            class="read-more">READ MORE</a>
+                        <div class="card-footer">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Date: December 4, 2024</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 3 -->
+                <article class="project-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card-image">
+                        <img src="{% static 'assets/projects/image 3.jpeg' %}" alt="Shelter Management">
+                    </div>
+                    <div class="card-body">
+                        <h3>Operation And Management Of Shelt...</h3>
+                        <p class="excerpt">
+                            The shelter homes are constructed under the central government's Shelter for Urban...
+                        </p>
+                        <a href="https://udaansociety.org/projects/operation-and-management-of-shelter-homes-project/"
+                            class="read-more">READ MORE</a>
+                        <div class="card-footer">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Date: February 16, 2024</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 4 -->
+                <article class="project-card" data-aos="fade-up">
+                    <div class="card-image">
+                        <img src="{% static 'assets/projects/image 4.png' %}" alt="Atal Bhujal Yojna">
+                    </div>
+                    <div class="card-body">
+                        <h3>Atal Bhujal Yojna</h3>
+                        <p class="excerpt">
+                            UDAAN society is working as a District Implementation Partner(DIP) under this project...
+                        </p>
+                        <a href="https://udaansociety.org/projects/atal-bhujal-yojna/" class="read-more">READ MORE</a>
+                        <div class="card-footer">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Date: February 16, 2024</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 5 -->
+                <article class="project-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card-image">
+                        <img src="{% static 'assets/projects/image 5.jpeg' %}" alt="AALI Partnership">
+                    </div>
+                    <div class="card-body">
+                        <h3>PARTNERSHIP WITH AALI</h3>
+                        <p class="excerpt">
+                            (A project on gender disparities and discrimination issues and gender-based violence
+                            risk)...
+                        </p>
+                        <a href="https://udaansociety.org/projects/partnership-with-aali/" class="read-more">READ
+                            MORE</a>
+                        <div class="card-footer">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Date: February 16, 2024</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 6 -->
+                <article class="project-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card-image">
+                        <img src="{% static 'assets/projects/image 6.png' %}" alt="PM Svanidhi">
+                    </div>
+                    <div class="card-body">
+                        <h3>PM Svanidhi Project</h3>
+                        <p class="excerpt">
+                            UDAAN Society is Working as an Implementation Agency for Aligarh Nagar Nigam...
+                        </p>
+                        <a href="https://udaansociety.org/projects/pm-svanidhi-project/" class="read-more">READ MORE</a>
+                        <div class="card-footer">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Date: February 16, 2024</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 7 -->
+                <article class="project-card" data-aos="fade-up">
+                    <div class="card-image">
+                        <img src="{% static 'assets/projects/image 7.png' %}" alt="Jal Jeevan">
+                    </div>
+                    <div class="card-body">
+                        <h3>Jal Jeevan Mission-Har Ghar Jal Project:</h3>
+                        <p class="excerpt">
+                            UDAAN Society is appointed an Implementation support Agency under Jal Jeevan Mission...
+                        </p>
+                        <a href="https://udaansociety.org/projects/jal-jeevan-mission-har-ghar-jal-project/"
+                            class="read-more">READ MORE</a>
+                        <div class="card-footer">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Date: February 16, 2024</span>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Card 8 -->
+                <article class="project-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card-image">
+                        <img src="{% static 'assets/projects/image 8.png' %}" alt="Child Line">
+                    </div>
+                    <div class="card-body">
+                        <h3>Child Line-1098</h3>
+                        <p class="excerpt">
+                            CHILDLINE 1098 is a phone number that spells hope for millions of...
+                        </p>
+                        <a href="https://udaansociety.org/projects/child-line-1098/" class="read-more">READ MORE</a>
+                        <div class="card-footer">
+                            <i class="far fa-calendar-alt"></i>
+                            <span>Date: February 15, 2024</span>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-card">
+                <div class="cta-content">
+                    <h4>GIVE US A HAND</h4>
+                    <h2>
+                        <span class="highlight">Support Us</span> And Change The<br>
+                        Course Of A Child's Life Today!
+                    </h2>
+                    <a href="#" class="read-more-link">Read more...</a>
+                </div>
+                <div class="cta-action">
+                    <a href="#" class="donate-btn-large">
+                        <div class="btn-text">
+                            <span class="main">📱Donate Now</span>
+                            <span class="sub">Secured by Razorpay</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 UDAAN Society. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="{% static 'js/projects.js' %}"></script>
+</body>
+
+</html>
