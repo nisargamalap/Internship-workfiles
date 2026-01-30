@@ -210,10 +210,12 @@ def project_list(request):
     """
     Public Project Listing Page
     """
-    return render(request, 'projects.html')
+    projects = Project.objects.all().order_by('-date')
+    return render(request, 'projects.html', {'projects': projects})
 
-def project_detail(request):
+def project_detail(request, slug):
     """
-    Specific Project Detail Page (Enabling Future)
+    Specific Project Detail Page
     """
-    return render(request, 'project_detail.html')
+    project = get_object_or_404(Project, slug=slug)
+    return render(request, 'project_detail.html', {'project': project})

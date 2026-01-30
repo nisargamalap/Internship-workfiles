@@ -68,7 +68,9 @@ class Campaign(models.Model):
 
 class Project(models.Model):
     title = models.CharField(max_length=200)
-    description = models.TextField()
+    slug = models.SlugField(unique=True, blank=True, null=True) # Will populate via migration
+    description = models.TextField(help_text="Short excerpt for the card")
+    content = models.TextField(blank=True, help_text="Full HTML content for the detail page")
     image = models.ImageField(upload_to='projects/')
     date = models.DateField()
     managers = models.ManyToManyField(User, related_name='managed_projects', blank=True, help_text="Managers responsible for this project")

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Enabling Future Through Youth Empowerment - Project Details{% endblock %}
+{% block title %}{{ project.title }} - Project Details{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/project_detail.css' %}?v=3">
@@ -20,115 +20,24 @@
 
 <!-- Breadcrumbs -->
 <div class="container breadcrumbs">
-    <p><a href="{% url 'home' %}">Home</a> > <a href="{% url 'project_list' %}">Projects</a> > <a href="#">Enabling
-            Future Through Youth Empowerment</a></p>
+    <p><a href="{% url 'home' %}">Home</a> > <a href="{% url 'project_list' %}">Projects</a> > <span class="current">{{
+            project.title }}</span></p>
 </div>
 
 <!-- Main Content Area -->
 <div class="container project-detail-layout">
     <main class="project-main-content">
-        <h2 class="project-title">ENABLING FUTURE THROUGH YOUTH EMPOWERMENT</h2>
+        <h2 class="project-title">{{ project.title }}</h2>
 
         <div class="project-image-wrapper">
-            <img src="https://udaansociety.org/media/project_images/Screenshot_2024-01-29_192244.png"
-                alt="Group photo of project team" class="project-main-image" data-lightbox="project-image">
+            {% if project.image %}
+            <img src="{{ project.image.url }}" alt="{{ project.title }}" class="project-main-image"
+                data-lightbox="project-image">
+            {% endif %}
         </div>
 
-        <p class="section-text">
-            <span class="emoji">☀️</span> UDAAN Society Joins Hands with Bandhan Skill Development Centre for Youth
-            Empowerment <span class="emoji">☀️</span>
-        </p>
-
-        <p>
-            We are thrilled to announce a transformative collaboration between <strong>UDAAN Society</strong> and
-            <strong>Bandhan Skill Development Centre</strong>, marking a significant step toward youth empowerment
-            and holistic community development in the <strong>Aligarh region</strong>.
-        </p>
-
-        <div class="project-vision">
-            <h3><span class="emoji">👁️</span> The Vision</h3>
-            <p>
-                For over 13 years, Bandhan Skill Development Centre has been a beacon of hope for thousands of
-                underprivileged youths across India. With <strong>57,023 youths trained</strong> and <strong>43,046
-                    successfully placed</strong> across various sectors in states like West Bengal, Odisha, Bihar,
-                and Uttar Pradesh, their impact is both deep and far-reaching.
-            </p>
-            <p>
-                <span class="emoji">💼</span> These youths are now earning respectable livelihoods with average
-                monthly incomes ranging from <strong>₹12,000 to ₹24,000</strong>, along with access to additional
-                perks and growth opportunities—proving that skill training truly changes lives.
-            </p>
-        </div>
-
-        <div class="project-partnership">
-            <h3><span class="emoji">🤝</span> The Partnership</h3>
-            <p>
-                This collaboration between <strong>Bandhan</strong> and <strong>UDAAN Society</strong> is built on a
-                shared mission—to foster 360-degree development by combining our unique strengths:
-            </p>
-            <ul>
-                <li><strong>UDAAN Society</strong> will spearhead <strong>youth mobilization</strong> in the Aligarh
-                    region, engaging, counseling, and enrolling motivated young individuals.</li>
-                <li><strong>Bandhan Skill Development Centre</strong> will deliver <strong>industry-relevant
-                        training</strong> and facilitate <strong>job placements</strong>, ensuring that youth are
-                    skilled, certified, and connected to sustainable career opportunities.</li>
-            </ul>
-        </div>
-
-        <div class="project-why-it-matters">
-            <h3><span class="emoji">💡</span> Why It Matters</h3>
-            <p>
-                At a time when unemployment and skill gaps remain major challenges, this partnership stands as a
-                model of how grassroots organizations and institutional skill providers can come together to create
-                real, measurable impact. Together, we are not just building careers—we are building confidence,
-                self-reliance, and hope.
-            </p>
-            <p>
-                <span class="emoji">📢</span> Stay tuned for training schedules, mobilization drives, and success
-                stories from the field. Let's rise together to uplift youth and empower communities!
-            </p>
-        </div>
-
-        <div class="program-poster">
-            <img src="https://udaansociety.org/media/project_images/WhatsApp_Image_2024-01-29_at_20.25.10_1.jpeg"
-                alt="Employability Skills Program Poster">
-        </div>
-
-        <div class="registration-info">
-            <h3>KEY HIGHLIGHTS:-</h3>
-            <div class="highlights-content">
-                <ul>
-                    <li><i class="fas fa-star-of-life"></i> PERSONALITY DEVELOPMENT</li>
-                    <li><i class="fas fa-star-of-life"></i> COMMUNICATION SKILLS</li>
-                    <li><i class="fas fa-star-of-life"></i> PROBLEM SOLVING</li>
-                    <li><i class="fas fa-star-of-life"></i> INTERVIEW SKILLS</li>
-                    <li><i class="fas fa-star-of-life"></i> COMPUTER SKILLS</li>
-                    <li><i class="fas fa-star-of-life"></i> JOB PLACEMENT ASSISTANCE</li>
-                </ul>
-                <div class="qr-code-section">
-                    <p class="scan-text">Scan For Registration</p>
-                    <img src="https://udaansociety.org/media/project_images/WhatsApp_Image_2024-01-29_at_20.25.10.jpeg"
-                        alt="QR Code for Registration">
-                </div>
-            </div>
-            <div class="contact-details">
-                <p>Association With</p>
-                <p class="bold">BANDHAN SKILL DEVELOPMENT CENTER</p>
-                <p><i class="fas fa-phone-alt"></i> +91 9639888844, 7017757843</p>
-                <p><i class="fas fa-map-marker-alt"></i> 3<sup>rd</sup> Floor ICICI Building in front of Gandhi Park
-                    Aligarh</p>
-                <p><i class="fas fa-envelope"></i> BSDC.ALIGARH@BANDHAN.ORG</p>
-            </div>
-        </div>
-
-        <div class="contact-form-section">
-            <h3><span class="emoji">📝</span> Contact us for more information or to register!</h3>
-            <div class="google-form-embed">
-                <!-- The Google Form iframe is embedded here -->
-                <iframe
-                    src="https://docs.google.com/forms/d/e/1FAIpQLSf4sMhR7DkO6n_T8uT0k0qX8W-uR0X-Y-u0Z-w/viewform?embedded=true"
-                    width="100%" height="900" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-            </div>
+        <div class="project-content">
+            {{ project.content|safe }}
         </div>
 
     </main>
@@ -149,7 +58,7 @@
         <div class="sidebar-block">
             <h3>Project Details</h3>
             <p><i class="fas fa-map-marker-alt icon"></i> Location: Aligarh</p>
-            <p><i class="fas fa-calendar-alt icon"></i> Date: 20/05/2025</p>
+            <p><i class="fas fa-calendar-alt icon"></i> Date: {{ project.date|date:"d/m/Y" }}</p>
             <p><i class="fas fa-envelope icon"></i> Email: <a
                     href="mailto:mail@udaansociety.org">mail@udaansociety.org</a></p>
             <p><i class="fas fa-phone-alt icon"></i> Phone: 9837067681</p>

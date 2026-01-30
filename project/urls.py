@@ -13,7 +13,7 @@ urlpatterns = [
     path("portal/task/<int:pk>/update/", update_task_status, name="update_task_status"),
     path("campaigns/", campaign_list, name="campaign_list"),
     path("projects/", project_list, name="project_list"),
-    path("projects/enabling-future-through-youth-empowerment/", project_detail, name="project_detail"),
+    path("projects/<slug:slug>/", project_detail, name="project_detail"),
     path("blood-request/", include("blood_request.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

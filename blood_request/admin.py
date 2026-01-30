@@ -58,8 +58,9 @@ class ReportAdmin(admin.ModelAdmin):
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('title', 'date', 'created_at')
+    list_display = ('title', 'date', 'created_at', 'slug')
     filter_horizontal = ('managers',) # Better UI for ManyToMany
+    prepopulated_fields = {'slug': ('title',)}
 
 @admin.register(Campaign)
 class CampaignAdmin(admin.ModelAdmin):

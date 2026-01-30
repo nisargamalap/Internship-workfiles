@@ -18,7 +18,7 @@
         <div class="container">
             <div class="nav-wrapper">
                 <a href="{% url 'home' %}" class="logo">
-                    <img src="{% static 'assets/projects/logo.png' %}" alt="UDAAN Society">
+                    <img src="{% static 'assets/logo.webp' %}" alt="UDAAN Society">
                 </a>
 
                 <div class="nav-menu">
@@ -92,157 +92,30 @@
     <section class="projects">
         <div class="container">
             <div class="projects-grid">
-
-                <!-- Card 1 -->
+                {% for project in projects %}
                 <article class="project-card" data-aos="fade-up">
                     <div class="card-image">
-                        <img src="{% static 'assets/projects/image 1.jpeg' %}" alt="Youth Development">
+                        {% if project.image %}
+                        <img src="{{ project.image.url }}" alt="{{ project.title }}">
+                        {% else %}
+                        <img src="{% static 'assets/default-project.jpg' %}" alt="{{ project.title }}">
+                        {% endif %}
                     </div>
                     <div class="card-body">
-                        <h3>Enabling Future Through Youth...</h3>
+                        <h3>{{ project.title|truncatechars:35 }}</h3>
                         <p class="excerpt">
-                            <i class="fas fa-sun" style="color: #fbbf24;"></i>
-                            UDAAN Society Joins Hands with Bandhan Skill Development Centre for Youth...
+                            {{ project.description|truncatechars:100 }}
                         </p>
-                        <a href="{% url 'project_detail' %}" class="read-more">READ MORE</a>
+                        <a href="{% url 'project_detail' project.slug %}" class="read-more">READ MORE</a>
                         <div class="card-footer">
                             <i class="far fa-calendar-alt"></i>
-                            <span>Date: May 26, 2025</span>
+                            <span>Date: {{ project.date|date:"F j, Y" }}</span>
                         </div>
                     </div>
                 </article>
-
-                <!-- Card 2 -->
-                <article class="project-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="card-image">
-                        <img src="{% static 'assets/projects/image 2.jpeg' %}" alt="Shiksha Plus">
-                    </div>
-                    <div class="card-body">
-                        <h3>Shiksha Plus Initiative With Shiv Nadar...</h3>
-                        <p class="excerpt">
-                            The Shiksha Plus initiative is a program by the Shiv Nadar Foundation...
-                        </p>
-                        <a href="https://udaansociety.org/projects/shiksha-plus-initiative-with-shiv-nadar-foundation-impacting-3000-lives-with-education/"
-                            class="read-more">READ MORE</a>
-                        <div class="card-footer">
-                            <i class="far fa-calendar-alt"></i>
-                            <span>Date: December 4, 2024</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Card 3 -->
-                <article class="project-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="card-image">
-                        <img src="{% static 'assets/projects/image 3.jpeg' %}" alt="Shelter Management">
-                    </div>
-                    <div class="card-body">
-                        <h3>Operation And Management Of Shelt...</h3>
-                        <p class="excerpt">
-                            The shelter homes are constructed under the central government's Shelter for Urban...
-                        </p>
-                        <a href="https://udaansociety.org/projects/operation-and-management-of-shelter-homes-project/"
-                            class="read-more">READ MORE</a>
-                        <div class="card-footer">
-                            <i class="far fa-calendar-alt"></i>
-                            <span>Date: February 16, 2024</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Card 4 -->
-                <article class="project-card" data-aos="fade-up">
-                    <div class="card-image">
-                        <img src="{% static 'assets/projects/image 4.png' %}" alt="Atal Bhujal Yojna">
-                    </div>
-                    <div class="card-body">
-                        <h3>Atal Bhujal Yojna</h3>
-                        <p class="excerpt">
-                            UDAAN society is working as a District Implementation Partner(DIP) under this project...
-                        </p>
-                        <a href="https://udaansociety.org/projects/atal-bhujal-yojna/" class="read-more">READ MORE</a>
-                        <div class="card-footer">
-                            <i class="far fa-calendar-alt"></i>
-                            <span>Date: February 16, 2024</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Card 5 -->
-                <article class="project-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="card-image">
-                        <img src="{% static 'assets/projects/image 5.jpeg' %}" alt="AALI Partnership">
-                    </div>
-                    <div class="card-body">
-                        <h3>PARTNERSHIP WITH AALI</h3>
-                        <p class="excerpt">
-                            (A project on gender disparities and discrimination issues and gender-based violence
-                            risk)...
-                        </p>
-                        <a href="https://udaansociety.org/projects/partnership-with-aali/" class="read-more">READ
-                            MORE</a>
-                        <div class="card-footer">
-                            <i class="far fa-calendar-alt"></i>
-                            <span>Date: February 16, 2024</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Card 6 -->
-                <article class="project-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="card-image">
-                        <img src="{% static 'assets/projects/image 6.png' %}" alt="PM Svanidhi">
-                    </div>
-                    <div class="card-body">
-                        <h3>PM Svanidhi Project</h3>
-                        <p class="excerpt">
-                            UDAAN Society is Working as an Implementation Agency for Aligarh Nagar Nigam...
-                        </p>
-                        <a href="https://udaansociety.org/projects/pm-svanidhi-project/" class="read-more">READ MORE</a>
-                        <div class="card-footer">
-                            <i class="far fa-calendar-alt"></i>
-                            <span>Date: February 16, 2024</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Card 7 -->
-                <article class="project-card" data-aos="fade-up">
-                    <div class="card-image">
-                        <img src="{% static 'assets/projects/image 7.png' %}" alt="Jal Jeevan">
-                    </div>
-                    <div class="card-body">
-                        <h3>Jal Jeevan Mission-Har Ghar Jal Project:</h3>
-                        <p class="excerpt">
-                            UDAAN Society is appointed an Implementation support Agency under Jal Jeevan Mission...
-                        </p>
-                        <a href="https://udaansociety.org/projects/jal-jeevan-mission-har-ghar-jal-project/"
-                            class="read-more">READ MORE</a>
-                        <div class="card-footer">
-                            <i class="far fa-calendar-alt"></i>
-                            <span>Date: February 16, 2024</span>
-                        </div>
-                    </div>
-                </article>
-
-                <!-- Card 8 -->
-                <article class="project-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="card-image">
-                        <img src="{% static 'assets/projects/image 8.png' %}" alt="Child Line">
-                    </div>
-                    <div class="card-body">
-                        <h3>Child Line-1098</h3>
-                        <p class="excerpt">
-                            CHILDLINE 1098 is a phone number that spells hope for millions of...
-                        </p>
-                        <a href="https://udaansociety.org/projects/child-line-1098/" class="read-more">READ MORE</a>
-                        <div class="card-footer">
-                            <i class="far fa-calendar-alt"></i>
-                            <span>Date: February 15, 2024</span>
-                        </div>
-                    </div>
-                </article>
-
+                {% empty %}
+                <p>No projects found.</p>
+                {% endfor %}
             </div>
         </div>
     </section>
