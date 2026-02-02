@@ -33,6 +33,7 @@
         }
     </script>
     {% load static %}
+    <link rel="stylesheet" href="{% static 'css/nav.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     {% block extra_css %}{% endblock %}
 </head>
@@ -40,85 +41,71 @@
 <body class="bg-gray-50 text-gray-800 font-sans antialiased">
 
     <!-- Navigation -->
-    <nav class="bg-white shadow-sm sticky top-0 z-50 font-sans">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <!-- Logo -->
-                <div class="flex-shrink-0 flex items-center cursor-pointer">
-                    <img src="{% static 'assets/logo.webp' %}" alt="UDAAN Society" class="h-16 w-auto">
-                </div>
-
-                <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center space-x-8 text-gray-700 text-sm font-medium">
-                    <div class="group relative cursor-pointer flex items-center hover:text-brand-red">
-                        <span>Who We Are</span>
-                        <svg class="ml-1 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd" />
-                        </svg>
-                    </div>
-                    <div class="group relative cursor-pointer flex items-center hover:text-brand-red">
-                        <span>Make a Difference</span>
-                        <svg class="ml-1 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd" />
-                        </svg>
-                    </div>
-                    <div class="group relative cursor-pointer flex items-center hover:text-brand-red py-4">
-                        <span>Impact</span>
-                        <svg class="ml-1 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd"
-                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                clip-rule="evenodd" />
-                        </svg>
-                        <!-- Dropdown Menu -->
-                        <div
-                            class="hidden group-hover:block absolute top-[100%] left-0 w-48 bg-white shadow-lg rounded-md py-2 z-50 border border-gray-100">
-                            <a href="{% url 'report_list' %}"
-                                class="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-brand-red">Annual
-                                Reports</a>
-                            <a href="#" class="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-brand-red">Our
-                                Locations</a>
-                            <a href="{% url 'project_list' %}"
-                                class="block px-4 py-2 text-gray-700 hover:bg-gray-50 hover:text-brand-red">Projects</a>
-                        </div>
-                    </div>
-
-                    <a href="#" class="text-brand-red font-semibold">Blood Request</a>
-                    <a href="#" class="hover:text-brand-red transition-colors">Campaigns</a>
-                </div>
-
-                <!-- Donate Button -->
-                <div class="hidden md:flex items-center space-x-3">
-                    <!-- Admin Link (Small) -->
-                    <a href="/admin/" target="_blank"
-                        class="text-xs font-bold text-gray-400 hover:text-gray-600 uppercase tracking-widest pt-1"
-                        title="Access Admin Panel">
-                        Admin
-                    </a>
-
-                    <button
-                        class="bg-[#4285F4] hover:bg-blue-600 text-white rounded px-3 py-1.5 flex items-center shadow-md transition-colors">
-                        <svg class="h-6 w-6 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                            <path
-                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
-                        </svg>
-                        <div class="flex flex-col items-start leading-none ml-1">
-                            <span class="font-bold text-base">Donate Now</span>
-                            <span class="text-[10px] opacity-80 italic">Secured by Razorpay</span>
-                        </div>
-                    </button>
-                    <!-- Mobile menu button -->
-                    <button class="md:hidden ml-4 text-gray-500 hover:text-brand-red focus:outline-none">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4 6h16M4 12h16M4 18h16"></path>
-                        </svg>
-                    </button>
-                </div>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <a href="{% url 'home' %}">
+                    <img class="logo-circle" src="{% static 'assets/logo.webp' %}" alt="UDAAN Society" />
+                </a>
             </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        Who We Are <span class="dropdown-arrow">▼</span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">About</a>
+                        <a href="#" class="dropdown-item">Our Mission And Values</a>
+                        <a href="#" class="dropdown-item">Appreciation and Accolades</a>
+                        <a href="#" class="dropdown-item">Our Partners</a>
+                        <a href="#" class="dropdown-item">Our Policies</a>
+                        <a href="#" class="dropdown-item">Contact Us</a>
+                        <a href="#" class="dropdown-item">Our Team</a>
+                        <a href="#" class="dropdown-item">FAQs</a>
+                        <!-- Admin Link for Reference, hidden usually or styled differently -->
+                        <a href="/admin/" target="_blank" class="dropdown-item"
+                            style="color: #ccc; font-size: 11px;">Admin Panel</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        Make a Difference <span class="dropdown-arrow">▼</span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="#" class="dropdown-item">Career and Fellowship</a>
+                        <a href="#" class="dropdown-item">Workplace Giving</a>
+                        <a href="#" class="dropdown-item">Volunteering</a>
+                        <a href="#" class="dropdown-item">Volunteering</a>
+                        <a href="#" class="dropdown-item">Campus Ambassador</a>
+                        <a href="#" class="dropdown-item">Jobs at UDAAN Society</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        Impact <span class="dropdown-arrow">▼</span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a href="{% url 'report_list' %}" class="dropdown-item">Annual Report</a>
+                        <a href="#" class="dropdown-item">Our Locations</a>
+                        <a href="{% url 'project_list' %}" class="dropdown-item">Projects</a>
+                        <a href="#" class="dropdown-item">Our Activities</a>
+                        <a href="#" class="dropdown-item">News Clippings</a>
+                        <a href="#" class="dropdown-item">Resources</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="/blood-request/" class="nav-link">Blood Request</a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'campaign_list' %}" class="nav-link">Campaigns</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="donate-btn">
+                        📱 Donate Now <span>Secured by RazorPay</span>
+                    </a>
+                </li>
+            </ul>
         </div>
     </nav>
 
