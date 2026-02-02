@@ -213,9 +213,17 @@ def project_list(request):
     projects = Project.objects.all().order_by('-date')
     return render(request, 'projects.html', {'projects': projects})
 
+
 def project_detail(request, slug):
     """
     Specific Project Detail Page
     """
     project = get_object_or_404(Project, slug=slug)
     return render(request, 'project_detail.html', {'project': project})
+
+def report_list(request):
+    """
+    Annual Reports Page
+    """
+    reports = Report.objects.all().order_by('-published_date')
+    return render(request, 'annual_reports.html', {'reports': reports})
