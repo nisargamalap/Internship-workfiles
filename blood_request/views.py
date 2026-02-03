@@ -230,3 +230,6 @@ def blogs_page(request):
 def projects_page(request):
     projects = Project.objects.all().order_by('-created_at')
     return render(request, 'projects.html', {'projects': projects})
+
+def report_list(request):
+    return render(request, 'report_list.html')
