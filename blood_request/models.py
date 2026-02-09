@@ -188,6 +188,31 @@ class Interaction(models.Model):
 
     def __str__(self):
         return f"{self.interaction_type} by {self.staff.username} ({self.outcome})"
+
+class Appointment(models.Model):
+    STATUS_CHOICES = [
+        ('Scheduled', 'Scheduled'),
+        ('Completed', 'Completed'),
+        ('Cancelled', 'Cancelled'),
+        ('No Show', 'No Show'),
+    ]
+
+    title = models.CharField(max_length=200)
+    description = models.TextField(blank=True)
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField()
+    staff = models.ForeignKey(User, on_delete=models.CASCADE, related_name='appointments')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Scheduled')
+    
+    # Generic Relation (Optional: link to specific donor/project if needed)
+    content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, null=True, blank=True)
+    object_id = models.PositiveIntegerField(null=True, blank=True)
+    entity = GenericForeignKey('content_type', 'object_id')
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.title} ({self.start_time.strftime('%Y-%m-%d %H:%M')})"
 class Blog(models.Model):
     title = models.CharField(max_length=200)
     content = RichTextField()   # <-- RichTextEditor
