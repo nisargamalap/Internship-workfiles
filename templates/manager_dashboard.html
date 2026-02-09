@@ -18,7 +18,7 @@
         </div>
 
         <!-- Stats Row -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
             <div class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-blue-500">
                 <h3 class="text-gray-500 text-sm uppercase font-semibold">Total Tasks</h3>
                 <p class="text-3xl font-bold text-gray-800">{{ stats.total }}</p>
@@ -31,6 +31,19 @@
                 <h3 class="text-gray-500 text-sm uppercase font-semibold">Pending</h3>
                 <p class="text-3xl font-bold text-gray-800">{{ stats.pending }}</p>
             </div>
+
+            <!-- Schedule Card -->
+            <a href="{% url 'appointment_list' %}"
+                class="bg-white p-6 rounded-xl shadow-sm border-l-4 border-brand-red hover:shadow-md transition">
+                <h3 class="text-gray-500 text-sm uppercase font-semibold">Schedule</h3>
+                <div class="flex items-center mt-1 text-brand-red font-bold">
+                    <span>Appointments</span>
+                    <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                    </svg>
+                </div>
+            </a>
         </div>
 
         <!-- CRITICAL ALERTS (Bottlenecks) -->

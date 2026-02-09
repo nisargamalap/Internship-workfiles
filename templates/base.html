@@ -109,6 +109,11 @@
                 <li class="nav-item">
                     <a href="{% url 'campaign_list' %}" class="nav-link">Campaigns</a>
                 </li>
+                {% if request.user.is_authenticated %}
+                <li class="nav-item">
+                    <a href="{% url 'appointment_list' %}" class="nav-link">Appointments</a>
+                </li>
+                {% endif %}
                 <li class="nav-item">
                     <a href="#" class="donate-btn">
                         📱 Donate Now <span>Secured by RazorPay</span>
