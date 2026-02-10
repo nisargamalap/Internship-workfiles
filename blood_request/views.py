@@ -158,17 +158,28 @@ from django.views.decorators.http import require_POST
 @login_required
 @require_POST
 def update_task_status(request, pk):
+    from django.utils import timezone
     task = get_object_or_404(Task, pk=pk, assigned_to=request.user)
     
+    # Get GPS data if provided
+    lat = request.POST.get('lat')
+    lng = request.POST.get('lng')
+
     # Simple Toggle for now: To Do -> In Progress -> Done -> To Do
     if task.status == 'To Do':
         task.status = 'In Progress'
     elif task.status == 'In Progress':
         task.status = 'Done'
+        # Only save completion data when marking as Done
+        if lat and lng:
+            task.completion_lat = lat
+            task.completion_lng = lng
+        task.completion_timestamp = timezone.now()
     else:
         task.status = 'To Do'
+        # specific logic for re-opening? maybe clear completion data?
+        # for now, keep history.
         
-    task.save()
     task.save()
     return redirect('staff_dashboard')
 
@@ -322,10 +333,59 @@ def donor_detail(request, pk):
         'donor': donor,
         'interactions': interactions,
         'interaction_types': Interaction.INTERACTION_TYPES,
-        'outcome_choices': Interaction.OUTCOME_CHOICES
     })
+
 
 def career_fellowship(request):
     return render(request, 'career_and_fellowship.html')
+
+# --- Appointment Scheduling (Phase 8) ---
+from .models import Appointment, PersonalNote
+from django.http import JsonResponse
+
+@login_required
+def personal_notes_api(request):
+    """API to get/save personal notes"""
+    # Use get_or_create to ensure a note exists
+    note, created = PersonalNote.objects.get_or_create(user=request.user)
+    
+    if request.method == 'POST':
+        import json
+        try:
+            data = json.loads(request.body)
+            note.content = data.get('content', '')
+            note.save()
+            return JsonResponse({'status': 'saved', 'updated_at': note.updated_at})
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=400)
+    
+    return JsonResponse({'content': note.content, 'updated_at': note.updated_at})
+
+@login_required
+def appointment_list(request):
+    # Show user's appointments
+    appointments = Appointment.objects.filter(staff=request.user).order_by('start_time')
+    return render(request, 'appointments.html', {'appointments': appointments})
+
+@login_required
+def appointment_create(request):
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        start = request.POST.get('start_time')
+        end = request.POST.get('end_time')
+        description = request.POST.get('description')
+        
+        if title and start and end:
+            Appointment.objects.create(
+                title=title,
+                start_time=start,
+                end_time=end,
+                description=description,
+                staff=request.user,
+                status='Scheduled'
+            )
+            return redirect('appointment_list')
+    
+    return render(request, 'appointment_form.html')
 
 
