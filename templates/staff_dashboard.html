@@ -4,9 +4,11 @@
 <section class="max-w-7xl mx-auto">
     <div class="flex justify-between items-center mb-8">
         <div>
-            <h1 class="text-2xl font-bold text-gray-800">My Workspace</h1>
-            <p class="text-sm text-gray-500">Welcome back, {{ request.user.first_name|default:request.user.username }}
-            </p>
+            <h1 class="text-2xl font-bold text-gray-800">
+                {% now "H" as current_hour %}
+                {% if current_hour|add:"0" < 12 %}Good Morning, {% elif current_hour|add:"0" < 18 %}Good Afternoon, {%
+                    else %}Good Evening, {% endif %} {{ request.user.first_name|default:request.user.username }} </h1>
+                    <p class="text-sm text-gray-500">Here's what's happening in your workspace today.</p>
         </div>
         <div class="text-sm text-gray-500 bg-white px-3 py-1 rounded-full shadow-sm border border-gray-100">
             {% now "l, F jS" %}
@@ -37,20 +39,22 @@
     {% endif %}
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <div
+            class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:-translate-y-1 hover:shadow-lg transition duration-300">
             <h3 class="text-gray-500 text-sm uppercase">Assigned Tasks</h3>
             <p class="text-3xl font-bold text-blue-600">{{ todo_tasks|length|add:inprogress_tasks|length }}</p>
         </div>
 
         <!-- IMPACT TRACKER (PDF Requirement) -->
-        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+        <div
+            class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:-translate-y-1 hover:shadow-lg transition duration-300">
             <h3 class="text-gray-500 text-sm uppercase">Impact: Donors</h3>
             <p class="text-3xl font-bold text-red-600">{{ total_donors }}</p>
         </div>
 
         <!-- APPOINTMENTS LINK -->
         <a href="{% url 'appointment_list' %}"
-            class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition group">
+            class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:-translate-y-1 hover:shadow-lg transition duration-300 group">
             <h3 class="text-gray-500 text-sm uppercase group-hover:text-brand-red transition">Schedule</h3>
             <div class="flex items-center mt-2 text-brand-red font-bold">
                 <span>View Appointments</span>
@@ -61,6 +65,31 @@
                 </svg>
             </div>
         </a>
+    </div>
+
+    <!-- Recent Activity Widget -->
+    <div class="mb-8">
+        <h3 class="text-gray-500 font-bold uppercase text-sm mb-4">Recent Activity</h3>
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
+            <div class="space-y-3">
+                {% for activity in recent_activity %}
+                <div class="flex items-center justify-between border-b border-gray-50 last:border-0 pb-2 last:pb-0">
+                    <div class="flex items-center">
+                        <div
+                            class="w-2 h-2 rounded-full bg-{% if activity.status == 'Done' %}green{% elif activity.status == 'In Progress' %}blue{% else %}gray{% endif %}-500 mr-3">
+                        </div>
+                        <div>
+                            <p class="text-sm font-medium text-gray-800">{{ activity.title }}</p>
+                            <p class="text-xs text-gray-400">Updated status to {{ activity.status }}</p>
+                        </div>
+                    </div>
+                    <span class="text-xs text-gray-400">{{ activity.updated_at|timesince }} ago</span>
+                </div>
+                {% empty %}
+                <p class="text-sm text-gray-400 italic">No recent activity.</p>
+                {% endfor %}
+            </div>
+        </div>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">

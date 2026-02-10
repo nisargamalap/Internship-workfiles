@@ -143,12 +143,16 @@ def staff_dashboard(request):
     inprogress_tasks = [t for t in all_tasks if t.status == 'In Progress']
     done_tasks = [t for t in all_tasks if t.status == 'Done']
 
+    # Recent Activity (Last 5 updated tasks)
+    recent_activity = Task.objects.filter(assigned_to=request.user).order_by('-updated_at')[:5]
+
     context = {
-        'announcements': announcements,
-        'total_donors': total_donors,
         'todo_tasks': todo_tasks,
         'inprogress_tasks': inprogress_tasks,
         'done_tasks': done_tasks,
+        'announcements': announcements,
+        'total_donors': total_donors,
+        'recent_activity': recent_activity,
     }
     return render(request, 'staff_dashboard.html', context)
 

@@ -284,6 +284,9 @@
 
     <!-- Chatbot Widget -->
     {% include 'chatbot_service/widget.html' %}
+    <!-- Global Workspace FAB Removed -->
+    {% if request.user.is_authenticated %}
+    {% endif %}
 </body>
 
 </html>

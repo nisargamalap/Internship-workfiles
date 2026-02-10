@@ -51,6 +51,23 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #94A3B8;
         }
+
+        /* Page Fade In */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
     </style>
     {% block extra_head %}{% endblock %}
 </head>
@@ -159,7 +176,7 @@
     </aside>
 
     <!-- MAIN CONTENT AREA -->
-    <main class="flex-1 flex flex-col h-full overflow-hidden bg-gray-50 relative">
+    <main class="flex-1 flex flex-col h-full overflow-hidden bg-gray-50 relative animate-fade-in">
         <!-- Mobile Header -->
         <div
             class="md:hidden h-16 bg-white border-b border-gray-100 flex items-center justify-between px-4 z-10 flex-shrink-0">
