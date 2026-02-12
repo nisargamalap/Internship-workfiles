@@ -129,7 +129,7 @@
 
       <!-- Right Image -->
       <div class="activities-image-wrapper">
-        <img src="{% static 'assets/welcomeImage.jpg' %}" alt="Our Activities" />
+        <img src="{% static 'assets/section2.jpg' %}" alt="Our Activities" />
       </div>
     </div>
   </section>
@@ -175,7 +175,7 @@
       <!-- Left Image -->
       <div class="welcome-image-wrapper">
         <div class="dots dots-left"></div>
-        <img src="" alt="UDAAN activities" />
+        <img src="{% static 'assets/welcomeImage.jpg' %}" alt="UDAAN activities" />
       </div>
 
       <!-- Right Content -->
@@ -311,6 +311,120 @@
       <a href="#" class="projects-view-more">View more..</a>
     </div>
   </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials-section">
+    <div class="testimonials-container">
+      <p class="testimonials-subtitle">Testimonials</p>
+      <h2 class="testimonials-title">What Key Stakeholders <span>Say About Us</span></h2>
+
+      <div class="testimonials-slider">
+        <button class="slider-arrow prev" onclick="moveTestimonial(-1)" aria-label="Previous testimonial">‹</button>
+
+        <div class="testimonials-track" id="testimonialTrack">
+          {% for testimonial in testimonials %}
+          <div class="testimonial-card"
+            onclick="openModal('{{ testimonial.author|escapejs }}', '{{ testimonial.role|escapejs }}', '{{ testimonial.detailed_text|default:testimonial.text|escapejs }}')">
+            <div class="quote-icon">“</div>
+
+            <div class="testimonial-summary">
+              <p class="testimonial-quote">
+                {{ testimonial.text|truncatechars:100 }}
+              </p>
+              <div class="testimonial-author">
+                <h4>{{ testimonial.author }}</h4>
+                <span>{{ testimonial.role }}</span>
+              </div>
+              <button class="expand-btn" aria-label="Read full story">
+                Read Story <span class="arrow">→</span>
+              </button>
+            </div>
+          </div>
+          {% empty %}
+          <div class="testimonial-card">
+            <p>No testimonials yet.</p>
+          </div>
+          {% endfor %}
+        </div>
+
+        <button class="slider-arrow next" onclick="moveTestimonial(1)" aria-label="Next testimonial">›</button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Testimonial Modal -->
+  <div id="testimonial-modal" class="modal" onclick="closeModal(event)">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal(event, true)">&times;</span>
+      <div class="modal-icon">“</div>
+      <p id="modal-text" class="modal-text"></p>
+      <div class="modal-author-block">
+        <h4 id="modal-author"></h4>
+        <span id="modal-role"></span>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Testimonial Slider Logic
+    let currentTestimonialIndex = 0;
+
+    function moveTestimonial(direction) {
+      const track = document.getElementById('testimonialTrack');
+      const cards = track.querySelectorAll('.testimonial-card');
+      if (cards.length === 0) return;
+
+      const cardWidth = cards[0].offsetWidth;
+      const gap = 30; // Matches CSS gap
+      const totalWidth = cardWidth + gap;
+
+      // Calculate visible cards based on screen width
+      let visibleCards = 3;
+      if (window.innerWidth <= 700) visibleCards = 1;
+      else if (window.innerWidth <= 1100) visibleCards = 2;
+
+      const maxIndex = Math.max(0, cards.length - visibleCards);
+
+      currentTestimonialIndex += direction;
+
+      // Bound checks
+      if (currentTestimonialIndex < 0) currentTestimonialIndex = 0;
+      if (currentTestimonialIndex > maxIndex) currentTestimonialIndex = maxIndex;
+
+      const translateX = -(currentTestimonialIndex * totalWidth);
+      track.style.transform = `translateX(${translateX}px)`;
+    }
+
+    // Handle Window Resize to reset or adjust
+    window.addEventListener('resize', () => {
+      moveTestimonial(0); // Recalculate bounds
+    });
+
+    // Modal Logic
+    function openModal(author, role, text) {
+      document.getElementById('modal-author').innerText = author;
+      document.getElementById('modal-role').innerText = role;
+      document.getElementById('modal-text').innerText = text;
+
+      const modal = document.getElementById('testimonial-modal');
+      modal.style.display = 'flex';
+      // Trigger reflow for animation
+      setTimeout(() => {
+        modal.classList.add('show');
+      }, 10);
+    }
+
+    function closeModal(event, force) {
+      if (force || event.target.id === 'testimonial-modal') {
+        const modal = document.getElementById('testimonial-modal');
+        modal.classList.remove('show');
+        setTimeout(() => {
+          modal.style.display = 'none';
+        }, 300); // Match transition duration
+      }
+    }
+  </script>
 
   <footer class="footer">
     <div class="footer-container">

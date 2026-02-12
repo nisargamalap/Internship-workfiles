@@ -110,12 +110,13 @@ def home_view(request):
     """
     campaigns = Campaign.objects.all().order_by('-created_at')[:3]
     projects = Project.objects.all().order_by('-date')[:3]
-    # Keep Reports if needed, or remove if Projects replaces it entirely. 
-    # The user asked to replace "Projects" section which was static.
+    from .models import Testimonial
+    testimonials = Testimonial.objects.filter(is_active=True).order_by('-created_at')[:7]
     
     context = {
         'campaigns': campaigns,
-        'projects': projects
+        'projects': projects,
+        'testimonials': testimonials
     }
     return render(request, 'home.html', context)
 

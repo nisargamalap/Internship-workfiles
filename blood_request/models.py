@@ -128,6 +128,18 @@ class Announcement(models.Model):
     def __str__(self):
         return self.title
 
+class Testimonial(models.Model):
+    text = models.TextField(help_text="The testimonial quote (summary)")
+    detailed_text = models.TextField(help_text="Full story/details (shown on expand)", blank=True, null=True)
+    author = models.CharField(max_length=100, help_text="Name of the person")
+    role = models.CharField(max_length=100, help_text="Role or designation (e.g. Volunteer)")
+    image = models.ImageField(upload_to='testimonials/', blank=True, null=True)
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.author} ({self.role})"
+
 # --- NGO Suite: Enhanced Data Structures (Phase 6) ---
 
 class StaffProfile(models.Model):

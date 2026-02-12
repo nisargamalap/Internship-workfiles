@@ -2,7 +2,13 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 from .models import Blog, Project
-from .models import BloodDonor, BloodRequest, Report, Campaign, Task, Project, SubTask, Announcement, StaffProfile
+from .models import BloodDonor, BloodRequest, Report, Campaign, Task, Project, SubTask, Announcement, StaffProfile, Testimonial
+
+@admin.register(Testimonial)
+class TestimonialAdmin(admin.ModelAdmin):
+    list_display = ('author', 'role', 'is_active', 'created_at')
+    list_filter = ('is_active',)
+
 
 # Define an inline admin descriptor for StaffProfile model
 class StaffProfileInline(admin.StackedInline):
