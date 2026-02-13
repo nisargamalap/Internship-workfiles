@@ -20,7 +20,7 @@ This document tracks the implementation status of the Project Management (PM) an
 
 ### Field Operations (GPS)
 - [x] **Data Structure**: `Task` model includes `completion_lat`, `completion_lng`, and timestamp fields.
-- [ ] **GPS Logic**: Frontend integration to capture geolocation when marking a task as "Done".
+- [x] **GPS Logic**: Frontend integration to capture geolocation when marking a task as "Done".
 
 ---
 
@@ -38,8 +38,8 @@ This document tracks the implementation status of the Project Management (PM) an
 - [ ] **Auto-Task Generation**: Logic to automatically create follow-up tasks based on interaction outcomes.
 
 ### Scheduling
-- [ ] **Appointment Calendar**: Visual calendar for upcoming meetings/drives.
-- [ ] **Reminders**: Automated email/SMS reminders for scheduled interactions.
+- [x] **Appointment Calendar**: Visual calendar for upcoming meetings/drives.
+- [x] **Reminders**: Automated email/SMS reminders for scheduled interactions.
 
 ---
 
@@ -63,12 +63,12 @@ This document tracks the implementation status of the Project Management (PM) an
 - [ ] **Timeline View**: A single view showing history of a donor (donations, calls, tasks).
 
 ### Zoho Workflow Rules (Automated Workflows)
-- [ ] **Data Model**: Configurable "Rules" model (Trigger -> Condition -> Action).
-- [ ] **Execution Engine**: Celery task to process rules (e.g., "If Last Donation > 90 days, Email Donor").
+- [X] **Data Model**: Configurable "Rules" model (Trigger -> Condition -> Action).
+- [X] **Execution Engine**: Celery task to process rules (e.g., "If Last Donation > 90 days, Email Donor").
 
 ### Zoho Blueprint (Process Enforcement)
-- [ ] **Finite State Machine**: Strict process states (Screening -> Donation -> Rest).
-- [ ] **Transition Guards**: Logic to prevent skipping steps (e.g., cannot Donate without Screening).
+- [X] **Finite State Machine**: Strict process states (Screening -> Donation -> Rest).
+- [X] **Transition Guards**: Logic to prevent skipping steps (e.g., cannot Donate without Screening).
 
 ### Zoho Zia (Intelligence Layer)
 - [ ] **Donor Scoring**: Script to calculate engagement score (Recency/Frequency).
