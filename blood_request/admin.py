@@ -50,14 +50,16 @@ class InteractionAdmin(admin.ModelAdmin):
 
 @admin.register(BloodDonor)
 class BloodDonorAdmin(admin.ModelAdmin):
-    list_display = ('name', 'blood_group', 'city', 'phone', 'created_at')
+    list_display = ('name', 'blood_group', 'city', 'phone', 'score', 'donation_count')
     search_fields = ('name', 'city', 'phone')
     list_filter = ('blood_group', 'city', 'consent_given')
+    readonly_fields = ('score', 'donation_count')
 
 @admin.register(BloodRequest)
 class BloodRequestAdmin(admin.ModelAdmin):
-    list_display = ('contact_person', 'blood_group', 'city', 'units', 'created_at')
-    list_filter = ('blood_group', 'city')
+    list_display = ('contact_person', 'blood_group', 'city', 'units', 'status', 'created_at')
+    list_filter = ('blood_group', 'city', 'status')
+    readonly_fields = ('status',)
 
 @admin.register(Report)
 class ReportAdmin(admin.ModelAdmin):

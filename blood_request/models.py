@@ -19,10 +19,22 @@ class BloodDonor(models.Model):
     pin_code = models.CharField(max_length=10)
     consent_given = models.BooleanField(default=False)
     last_donation_date = models.DateField(null=True, blank=True)
+    donation_count = models.IntegerField(default=0)
+    score = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.name} ({self.blood_group}) - {self.city}"
+        return f"{self.name} ({self.blood_group}) - Score: {self.score}"
+
+class Donation(models.Model):
+    donor = models.ForeignKey(BloodDonor, on_delete=models.CASCADE, related_name='donations')
+    date = models.DateField()
+    units = models.IntegerField(default=1)
+    notes = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Donation by {self.donor.name} on {self.date}"
 
 class BloodRequest(models.Model):
     BLOOD_GROUP_CHOICES = [
@@ -42,10 +54,42 @@ class BloodRequest(models.Model):
     contact_phone = models.CharField(max_length=15)
     # Using specific path (though for in-memory/temp usage, plain FileField is fine)
     request_form_file = models.FileField(upload_to='requests/', blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    # FSM State Management
+    from django_fsm import FSMField, transition
+
+    STATUS_RECEIVED = 'Received'
+    STATUS_VERIFIED = 'Verified'
+    STATUS_FULFILLING = 'Fulfilling'
+    STATUS_CLOSED = 'Closed'
+
+    STATUS_CHOICES = [
+        (STATUS_RECEIVED, 'Received'),
+        (STATUS_VERIFIED, 'Verified'),
+        (STATUS_FULFILLING, 'Fulfilling'),
+        (STATUS_CLOSED, 'Closed'),
+    ]
+
+    status = FSMField(default=STATUS_RECEIVED, choices=STATUS_CHOICES, protected=True)
 
     def __str__(self):
-        return f"Request: {self.blood_group} by {self.contact_person} in {self.city}"
+        return f"Request: {self.blood_group} by {self.contact_person} in {self.city} ({self.status})"
+
+    @transition(field=status, source=STATUS_RECEIVED, target=STATUS_VERIFIED)
+    def verify(self):
+        """Mark the request as verified by staff."""
+        pass
+
+    @transition(field=status, source=STATUS_VERIFIED, target=STATUS_FULFILLING)
+    def start_fulfilling(self):
+        """Start the fulfillment process (finding donors)."""
+        pass
+
+    @transition(field=status, source=[STATUS_RECEIVED, STATUS_VERIFIED, STATUS_FULFILLING], target=STATUS_CLOSED)
+    def close(self):
+        """Close the request (completed or cancelled)."""
+        pass
+
+    created_at = models.DateTimeField(auto_now_add=True)
 
 # --- CMS Models ---
 class Report(models.Model):
