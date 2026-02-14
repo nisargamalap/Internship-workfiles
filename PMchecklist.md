@@ -52,7 +52,7 @@ This document tracks the implementation status of the Project Management (PM) an
 
 ### Reporting
 - [x] **Basic Stats**: Dashboard counters for Donors and Active Tasks.
-- [ ] **Export**: Ability to export donor lists or task reports to CSV/Excel.
+- [x] **Export**: Ability to export donor lists or task reports to CSV/Excel.
 
 ---
 
@@ -72,7 +72,7 @@ This document tracks the implementation status of the Project Management (PM) an
 
 ### Zoho Zia (Intelligence Layer)
 - [ ] **Donor Scoring**: Script to calculate engagement score (Recency/Frequency).
-- [ ] **Heuristic Suggestions**: "Best time to call" based on donor history.
+- [x] **Heuristic Suggestions**: "Best time to call" based on donor history.
 
 ### Zoho Canvas (Visual Design)
 - [ ] **Card UI**: Visual representation of records (already using Tailwind, can be enhanced).

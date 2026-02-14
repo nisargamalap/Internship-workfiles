@@ -28,7 +28,12 @@ This checklist covers the recent major updates to the Staff & Manager Portal (Ph
 - [x] **Process Enforcement**: Strict status lifecycle for Blood Requests.
 - [x] **Star Donors**: Automated scoring system to identify top contributors.
 
-## 5. Verification
+## 5. Advanced Reporting & Visualization (Phase 16)
+- [x] **Data Export**: CSV export for Donors and Blood Requests (Manager Only).
+- [x] **Visual Calendar**: FullCalendar integration in Staff Dashboard for Tasks/Appointments.
+- [x] **Smart Heuristics**: "Best Time to Call" insight on Donor Detail page.
+
+## 6. Verification
 - [x] **Staff Access**: Verified `staff1` can access the new layout and features.
 - [x] **Manager Access**: Verified `manager1` sees the "Team Overview" in the sidebar.
 - [x] **Responsiveness**: Verified layout works on mobile (hamburger menu for sidebar).

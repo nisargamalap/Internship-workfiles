@@ -425,3 +425,68 @@ def profile_edit(request):
         'p_form': p_form
     }
     return render(request, 'profile.html', context)
+
+# --- Phase 16: Data Export Suite ---
+import csv
+from django.http import HttpResponse
+
+@user_passes_test(is_manager)
+def export_donors_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="blood_donors.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['Name', 'Blood Group', 'City', 'Phone', 'Email', 'Last Donation', 'Donation Count', 'Score'])
+
+    donors = BloodDonor.objects.all().values_list(
+        'name', 'blood_group', 'city', 'phone', 'email', 'last_donation_date', 'donation_count', 'score'
+    )
+    for donor in donors:
+        writer.writerow(donor)
+
+    return response
+
+@user_passes_test(is_manager)
+def export_requests_csv(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="blood_requests.csv"'
+
+    writer = csv.writer(response)
+    writer.writerow(['Contact Person', 'Phone', 'City', 'Blood Group', 'Units', 'Status', 'Created At'])
+
+    requests = BloodRequest.objects.all().values_list(
+        'contact_person', 'contact_phone', 'city', 'blood_group', 'units', 'status', 'created_at'
+    )
+    for req in requests:
+        writer.writerow(req)
+
+    return response
+
+@login_required
+def calendar_events_api(request):
+    """API for FullCalendar"""
+    events = []
+    
+    # Tasks
+    tasks = Task.objects.filter(assigned_to=request.user)
+    for task in tasks:
+        if task.due_date:
+            events.append({
+                'title': f"Task: {task.title}",
+                'start': task.due_date.isoformat(),
+                'color': '#EF4444' if task.priority == 'Critical' else '#3B82F6',
+                'url': f"/admin/portal/" # linking to dashboard for now
+            })
+            
+    # Appointments
+    appointments = Appointment.objects.filter(staff=request.user)
+    for appt in appointments:
+        events.append({
+            'title': f"Mtg: {appt.title}",
+            'start': appt.start_time.isoformat(),
+            'end': appt.end_time.isoformat(),
+            'color': '#10B981',
+            'url': '/appointment/list/'
+        })
+
+    return JsonResponse(events, safe=False)

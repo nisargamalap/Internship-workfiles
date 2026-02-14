@@ -23,6 +23,19 @@ class BloodDonor(models.Model):
     score = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def get_best_call_time(self):
+        """
+        Heuristic to suggest best time to call.
+        Logic: Metro cities -> Evening (Work hours), Others -> Morning/Afternoon.
+        """
+        metro_cities = ['Mumbai', 'New Mumbai', 'Delhi', 'Bangalore', 'Bengaluru', 'Hyderabad', 'Chennai', 'Kolkata', 'Pune']
+        
+        # Simple string matching
+        if any(city.lower() in self.city.lower() for city in metro_cities):
+            return "Evening (6:00 PM - 9:00 PM)"
+        
+        return "Morning (10:00 AM - 1:00 PM)"
+
     def __str__(self):
         return f"{self.name} ({self.blood_group}) - Score: {self.score}"
 

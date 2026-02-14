@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
-from blood_request.views import home_view, staff_dashboard, update_task_status, manager_dashboard, campaign_list, project_list, project_detail, report_list, blogs_page, resources_page, profile_edit
+from blood_request.views import home_view, staff_dashboard, update_task_status, manager_dashboard, campaign_list, project_list, project_detail, report_list, blogs_page, resources_page, profile_edit, export_donors_csv, export_requests_csv
+from blood_request import views
 
 from django.conf import settings
 from django.shortcuts import render
@@ -11,6 +12,9 @@ urlpatterns = [
     path("admin/portal/task/<int:pk>/update/", update_task_status, name="update_task_status"),
     path("admin/portal/", staff_dashboard, name="staff_dashboard"),
     path("admin/portal/profile/", profile_edit, name="profile_edit"),
+    path("admin/export/donors/", views.export_donors_csv, name="export_donors_csv"),
+    path("admin/export/requests/", views.export_requests_csv, name="export_requests_csv"),
+    path("api/calendar/events/", views.calendar_events_api, name="calendar_events_api"),
 
     path("admin/", admin.site.urls),
     path("", home_view, name="home"),
