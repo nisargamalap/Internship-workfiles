@@ -79,8 +79,7 @@
                         <ul class="list-disc pl-5 space-y-1">
                             {% for task in overdue_tasks %}
                             <li>
-                                <strong>{{ task.title }}</strong> - Assigned to: {{
-                                task.assigned_to.username|default:"Unassigned" }}
+                                <strong>{{ task.title }}</strong> - Assigned to: {{ task.assigned_to.username|default:"Unassigned" }}
                                 (Due: {{ task.due_date|date:"M d" }})
                             </li>
                             {% endfor %}

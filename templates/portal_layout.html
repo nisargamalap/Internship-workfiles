@@ -94,8 +94,7 @@
                     {{ request.user.username|slice:":1"|upper }}
                 </div>
                 <div>
-                    <h4 class="text-sm font-bold text-gray-800 leading-tight">{{
-                        request.user.first_name|default:request.user.username }}</h4>
+                    <h4 class="text-sm font-bold text-gray-800 leading-tight">{{ request.user.first_name|default:request.user.username }}</h4>
                     <p class="text-xs text-gray-400 mt-0.5">
                         {% if request.user.is_superuser %}Administrator
                         {% elif request.user.groups.all.0.name == 'Managers' %}Manager
