@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Workspace | UDAAN Society{% endblock %}</title>
+    <title>{% block title %}Workspace v2 | UDAAN Society{% endblock %}</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -94,7 +94,10 @@
                     {{ request.user.username|slice:":1"|upper }}
                 </div>
                 <div>
-                    <h4 class="text-sm font-bold text-gray-800 leading-tight">{{ request.user.first_name|default:request.user.username }}</h4>
+                    <h4 class="text-sm font-bold text-gray-800 leading-tight">
+                        {% if request.user.first_name %}{{ request.user.first_name }}{% else %}{{ request.user.username
+                        }}{% endif %}
+                    </h4>
                     <p class="text-xs text-gray-400 mt-0.5">
                         {% if request.user.is_superuser %}Administrator
                         {% elif request.user.groups.all.0.name == 'Managers' %}Manager

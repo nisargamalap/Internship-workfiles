@@ -31,7 +31,8 @@
             <h1 class="text-2xl font-bold text-gray-800">
                 {% now "H" as current_hour %}
                 {% if current_hour|add:"0" < 12 %}Good Morning, {% elif current_hour|add:"0" < 18 %}Good Afternoon, {%
-                    else %}Good Evening, {% endif %} {{ request.user.first_name|default:request.user.username }}</h1>
+                    else %}Good Evening, {% endif %} {% if request.user.first_name %}{{ request.user.first_name }}{%
+                    else %}{{ request.user.username }}{% endif %} </h1>
                     <p class="text-sm text-gray-500">Here's what's happening in your workspace today.</p>
         </div>
         <div class="text-sm text-gray-500 bg-white px-3 py-1 rounded-full shadow-sm border border-gray-100">
@@ -168,7 +169,8 @@
         <!-- IN PROGRESS COLUMN -->
         <div class="bg-blue-50 rounded-xl p-4">
             <h3 class="text-blue-500 font-bold uppercase text-sm mb-4 flex justify-between">
-                In Progress <span class="bg-blue-200 px-2 rounded-full text-xs py-1 text-blue-800">{{ inprogress_tasks|length }}</span>
+                In Progress <span class="bg-blue-200 px-2 rounded-full text-xs py-1 text-blue-800">{{
+                    inprogress_tasks|length }}</span>
             </h3>
             <div class="space-y-4">
                 {% for task in inprogress_tasks %}
@@ -202,7 +204,8 @@
         <!-- DONE COLUMN -->
         <div class="bg-green-50 rounded-xl p-4">
             <h3 class="text-green-600 font-bold uppercase text-sm mb-4 flex justify-between">
-                Completed <span class="bg-green-200 px-2 rounded-full text-xs py-1 text-green-800">{{ done_tasks|length }}</span>
+                Completed <span class="bg-green-200 px-2 rounded-full text-xs py-1 text-green-800">{{ done_tasks|length
+                    }}</span>
             </h3>
             <div class="space-y-4">
                 {% for task in done_tasks %}
