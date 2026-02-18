@@ -282,6 +282,9 @@ def manager_dashboard(request):
 
     context = {
         'tasks': tasks,
+        'todo_tasks': todo_tasks,
+        'inprogress_tasks': inprogress_tasks,
+        'done_tasks': done_tasks,
         'stats': stats,
         'projects': projects,
         'staff_load': staff_load,
