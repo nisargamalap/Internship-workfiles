@@ -48,4 +48,6 @@ urlpatterns = [
     path('appreciation-and-accolades/', views.appreciationandaccolades, name='appreciationandaccolades'),
     path('our-activities/', views.our_activities, name='our_activities'),
      path("blood-donation/", views.blood_donation, name="blood_donation"),
+     path("api/blood-request/", views.blood_request_submit, name="blood_request_submit"),
+     path("api/newsletter/subscribe/", views.newsletter_subscribe, name="newsletter_subscribe"),
 ]
