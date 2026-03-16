@@ -8,7 +8,7 @@ from django.views.decorators.csrf import ensure_csrf_cookie
 from .models import (
     BloodDonor, BloodRequest, ContactMessage, Report, Campaign, Task, StaffProfile, SubTask, 
     Interaction, Project, NewsClipping, Team, SharedNote, Workspace, Notification, Expense, TaskComment,
-    TaskAutomationRule
+    TaskAutomationRule, Donation
 )
 from .schemas import DonorSchema
 from pydantic import ValidationError
@@ -1509,4 +1509,68 @@ def export_tasks_pdf(request):
     
 
 def blood_donation(request):
-    return render(request, "blood_donation.html")
+    """Blood Donation page with live data from the database."""
+    # Live blood requests (non-closed)
+    live_requests = BloodRequest.objects.exclude(status='Closed').order_by('-created_at')[:10]
+    
+    # Impact stats
+    total_donors = BloodDonor.objects.count()
+    total_donations = Donation.objects.count()
+    total_requests = BloodRequest.objects.count()
+    
+    context = {
+        'live_requests': live_requests,
+        'total_donors': total_donors,
+        'total_donations': total_donations,
+        'total_requests': total_requests,
+    }
+    return render(request, "blood_donation.html", context)
+
+
+def newsletter_subscribe(request):
+    """API endpoint for newsletter email subscription."""
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            email = data.get('email', '').strip()
+            if not email:
+                return JsonResponse({'success': False, 'error': 'Email is required.'}, status=400)
+            
+            from .models import NewsletterSubscription
+            if NewsletterSubscription.objects.filter(email=email).exists():
+                return JsonResponse({'success': False, 'error': 'This email is already subscribed.'}, status=400)
+            
+            NewsletterSubscription.objects.create(email=email)
+            return JsonResponse({'success': True, 'message': 'Successfully subscribed!'})
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)}, status=500)
+    return JsonResponse({'success': False, 'error': 'Invalid method'}, status=405)
+
+
+def blood_request_submit(request):
+    """API endpoint for blood request form submission."""
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            
+            required_fields = ['blood_group', 'contact_person', 'contact_phone', 'city']
+            for field in required_fields:
+                if not data.get(field):
+                    return JsonResponse({'success': False, 'error': f'{field.replace("_", " ").title()} is required.'}, status=400)
+
+            blood_request = BloodRequest.objects.create(
+                patient_name=data.get('patient_name', ''),
+                hospital_name=data.get('hospital_name', ''),
+                blood_group=data.get('blood_group'),
+                city=data.get('city', ''),
+                state=data.get('state', ''),
+                pin_code=data.get('pin_code', ''),
+                contact_person=data.get('contact_person'),
+                contact_phone=data.get('contact_phone'),
+                is_emergency=data.get('is_emergency', False),
+                units=int(data.get('units', 1)),
+            )
+            return JsonResponse({'success': True, 'message': 'Blood request submitted successfully!'})
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)}, status=500)
+    return JsonResponse({'success': False, 'error': 'Invalid method'}, status=405)

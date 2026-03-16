@@ -14,11 +14,14 @@ class BloodDonor(models.Model):
     name = models.CharField(max_length=100)
     blood_group = models.CharField(max_length=3, choices=BLOOD_GROUP_CHOICES)
     phone = models.CharField(max_length=15, unique=True, help_text="Phone number with country code")
+    whatsapp_number = models.CharField(max_length=15, blank=True, null=True, help_text="WhatsApp number")
     email = models.EmailField(blank=True, null=True)
+    email_notifications = models.BooleanField(default=False, help_text="Receive notifications via email")
     city = models.CharField(max_length=100)
     state = models.CharField(max_length=100)
     pin_code = models.CharField(max_length=10)
     consent_given = models.BooleanField(default=False)
+    available_to_donate = models.BooleanField(default=True, help_text="Currently available to donate")
     last_donation_date = models.DateField(null=True, blank=True)
     donation_count = models.IntegerField(default=0)
     score = models.IntegerField(default=0)
@@ -59,12 +62,16 @@ class BloodRequest(models.Model):
         ('O+', 'O+'), ('O-', 'O-'),
     ]
 
+    patient_name = models.CharField(max_length=100, blank=True, null=True, help_text="Name of the patient")
+    hospital_name = models.CharField(max_length=200, blank=True, null=True, help_text="Hospital where blood is needed")
     city = models.CharField(max_length=100)
+    state = models.CharField(max_length=100, blank=True, null=True)
     pin_code = models.CharField(max_length=10)
     blood_group = models.CharField(max_length=3, choices=BLOOD_GROUP_CHOICES)
-    units = models.IntegerField(help_text="Number of units/bags")
+    units = models.IntegerField(help_text="Number of units/bags", default=1)
+    is_emergency = models.BooleanField(default=False, help_text="Emergency blood request")
     address_line_1 = models.CharField(max_length=255, blank=True, null=True)
-    address_line_2 = models.CharField(max_length=255)
+    address_line_2 = models.CharField(max_length=255, blank=True, null=True)
     contact_person = models.CharField(max_length=100)
     contact_phone = models.CharField(max_length=15)
     # Using specific path (though for in-memory/temp usage, plain FileField is fine)
@@ -605,3 +612,10 @@ class JobPosting(models.Model):
         return self.title
 
 
+class NewsletterSubscription(models.Model):
+    email = models.EmailField(unique=True)
+    subscribed_at = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.email
