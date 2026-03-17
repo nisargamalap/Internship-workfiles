@@ -50,7 +50,10 @@ def register_donor(request):
                 city=donor_data.city,
                 state=donor_data.state,
                 pin_code=donor_data.pin_code,
-                consent_given=donor_data.consent_given
+                consent_given=donor_data.consent_given,
+                whatsapp_number=donor_data.whatsapp_number,
+                email_notifications=donor_data.email_notifications,
+                available_to_donate=donor_data.available_to_donate
             )
             
             # 4. Send Email
