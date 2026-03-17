@@ -186,8 +186,15 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-# Email Configuration (Console Backend for Development)
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# Email Configuration (SMTP Backend for Real Emails)
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com') # e.g. smtp.gmail.com, smtp.hostinger.com
+EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 587))
+EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'True') == 'True'
+EMAIL_USE_SSL = os.environ.get('EMAIL_USE_SSL', 'False') == 'True'
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'mail@udaansociety.org')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '') # Enter your SMTP password or App Password here!
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # Media Files (Uploaded content)
 MEDIA_URL = '/media/'

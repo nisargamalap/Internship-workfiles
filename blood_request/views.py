@@ -19,6 +19,8 @@ from django.contrib.auth.decorators import permission_required, user_passes_test
 from .models import CampusAmbassador
 from .models import PolicyReport
 
+from .utils import create_notification, generate_unique_din, send_din_email
+
 @ensure_csrf_cookie
 def index(request):
     """
@@ -38,17 +40,24 @@ def register_donor(request):
                 return JsonResponse({'success': False, 'error': 'Phone number already registered.'}, status=400)
 
             # 3. Create Model Instance
+            din = generate_unique_din()
             donor = BloodDonor.objects.create(
                 name=donor_data.name,
                 blood_group=donor_data.blood_group,
                 phone=donor_data.phone,
                 email=donor_data.email,
+                din=din,
                 city=donor_data.city,
                 state=donor_data.state,
                 pin_code=donor_data.pin_code,
                 consent_given=donor_data.consent_given
             )
-            return JsonResponse({'success': True, 'message': 'Registration successful!'})
+            
+            # 4. Send Email
+            if donor.email:
+                send_din_email(donor.email, din, record_type='donor')
+                
+            return JsonResponse({'success': True, 'message': 'Registration successful! Your DIN is generated.'})
 
         except ValidationError as e:
             return JsonResponse({'success': False, 'error': e.errors()}, status=400)
@@ -94,6 +103,8 @@ def blood_request_create(request):
                 if not data.get(field):
                     return JsonResponse({"success": False, "error": f"{field.replace('_', ' ').title()} is required."}, status=400)
 
+            din = generate_unique_din()
+            contact_email = data.get('contact_email')
             blood_request = BloodRequest.objects.create(
                 city=data.get('city'),
                 pin_code=data.get('pin_code'),
@@ -103,8 +114,15 @@ def blood_request_create(request):
                 address_line_2=data.get('address_line_2'),
                 contact_person=data.get('contact_person'),
                 contact_phone=data.get('contact_phone'),
+                contact_email=contact_email,
+                din=din,
                 # File handling omitted for JSON payload simplicity in this step
             )
+            
+            # Send Email
+            if contact_email:
+                send_din_email(contact_email, din, record_type='request')
+                
             return JsonResponse({"success": True, "message": "Blood request submitted successfully!"})
         except Exception as e:
             return JsonResponse({"success": False, "error": str(e)}, status=500)

@@ -16,6 +16,7 @@ class BloodDonor(models.Model):
     phone = models.CharField(max_length=15, unique=True, help_text="Phone number with country code")
     whatsapp_number = models.CharField(max_length=15, blank=True, null=True, help_text="WhatsApp number")
     email = models.EmailField(blank=True, null=True)
+    din = models.CharField(max_length=20, unique=True, blank=True, null=True, help_text="Donor Identification Number")
     email_notifications = models.BooleanField(default=False, help_text="Receive notifications via email")
     city = models.CharField(max_length=100)
     state = models.CharField(max_length=100)
@@ -74,6 +75,8 @@ class BloodRequest(models.Model):
     address_line_2 = models.CharField(max_length=255, blank=True, null=True)
     contact_person = models.CharField(max_length=100)
     contact_phone = models.CharField(max_length=15)
+    contact_email = models.EmailField(blank=True, null=True)
+    din = models.CharField(max_length=20, unique=True, blank=True, null=True, help_text="Request Identification Number")
     # Using specific path (though for in-memory/temp usage, plain FileField is fine)
     request_form_file = models.FileField(upload_to='requests/', blank=True, null=True)
     # FSM State Management
