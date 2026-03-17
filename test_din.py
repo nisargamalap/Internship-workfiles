@@ -39,6 +39,9 @@ donor_payload = {
     "city": "Test City",
     "state": "Test State",
     "pin_code": "123456",
+    "whatsapp_number": "9999999999",
+    "email_notifications": True,
+    "available_to_donate": True,
     "consent_given": True
 }
 request = factory.post('/api/register/', data=json.dumps(donor_payload), content_type='application/json')
