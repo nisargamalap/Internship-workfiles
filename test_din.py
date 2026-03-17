@@ -8,9 +8,6 @@ import sys
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "project.settings")
 django.setup()
 
-from django.conf import settings
-settings.EMAIL_BACKEND = 'django.core.mail.backends.locmem.EmailBackend'
-
 from blood_request.views import register_donor, blood_request_create
 from blood_request.models import BloodDonor, BloodRequest
 from django.core import mail
